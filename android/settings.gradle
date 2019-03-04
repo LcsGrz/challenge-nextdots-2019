@@ -1,4 +1,4 @@
-rootProject.name = 'boilerplate032019056'
+rootProject.name = 'challengenextdots'
 
 include ':app'
 
