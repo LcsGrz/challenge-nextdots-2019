@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable */
-
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import styles from './styles';

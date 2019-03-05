@@ -5,11 +5,62 @@ import {
   INFO_ABIERTA,
   INFO_CERRADA,
 } from './types';
+import NextDotsLogo from '../assets/images/common/nextDotsLogo.png';
 
 export const cocktailsObtenidos = lista => {
   return {
     type: COCKTAILS_OBTENIDOS,
-    lista,
+    asd: lista,
+    lista: [
+      {
+        key: '0',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['tequila y paco', 'otra droga', 'more droga'],
+      },
+      {
+        key: '1',
+        titulo: 'Paco en paco',
+        imagen: NextDotsLogo,
+        ingredientes: ['zapato', 'very much'],
+      },
+      {
+        key: '2',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
+      },
+      {
+        key: '3',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
+      },
+      {
+        key: '4',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
+      },
+      {
+        key: '5',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
+      },
+      {
+        key: '6',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
+      },
+      {
+        key: '7',
+        titulo: 'Apple Grande',
+        imagen: NextDotsLogo,
+        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
+      },
+    ],
   };
 };
 

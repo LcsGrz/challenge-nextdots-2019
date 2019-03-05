@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   StyleSheet,
@@ -10,12 +10,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
 import colors from '../theme/Colors';
-import { CocktailView } from '../components';
+import { CocktailView, Button } from '../components';
 import fonts from '../theme/fonts';
 import iconLupa from '../assets/images/common/lupa.png';
 import iconError from '../assets/images/common/error.png';
-import NextDotsLogo from '../assets/images/common/nextDotsLogo.png';
 import { buscarCocktails } from '../actions/cocktails';
 
 const styles = StyleSheet.create({
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'white',
   },
-  imagen: { height: '30%', width: '30%' },
+  imagen: { width: 300, height: 300 },
 });
 
 class CocktailList extends React.Component {
@@ -57,17 +57,35 @@ class CocktailList extends React.Component {
 
   state = {
     cocktailsFiltrados: [],
+    seteados: false,
   };
 
   componentDidMount() {
-    if (!this.props.cocktailsObtenidos) obtenerCocktails();
-    else this.setState({ cocktailsFiltrados: this.props.listaCocktails });
+    const { cocktails, obtenerCocktails } = this.props;
+    //---------------------------------------
+    if (!cocktails.cocktailsObtenidos) obtenerCocktails();
   }
 
-  render() {
-    const { componentId } = this.props;
+  entradaTextoHandler = texto => {
+    const { cocktails } = this.props;
+    //---------------------------------------
+    if (texto.length === 0) {
+      this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });
+    } else {
+      let cocktailsFiltrados = cocktails.listaCocktails.filter(item => {
+        const nombre = item.titulo.toUpperCase();
+        return nombre.indexOf(texto.toUpperCase()) > -1;
+      });
 
-    /* let vistaContenido = (
+      this.setState({ cocktailsFiltrados });
+    }
+  };
+
+  render() {
+    const { componentId, cocktails, obtenerCocktails } = this.props;
+    let { cocktailsFiltrados, seteados } = this.state;
+    //---------------------------------------------------------------------------------------
+    let vistaContenido = (
       <View style={styles.container}>
         <ActivityIndicator size="large" color="white" />
         <Text style={[styles.info, { fontFamily: fonts.regular }]} textBreakStrategy="balanced">
@@ -76,106 +94,61 @@ class CocktailList extends React.Component {
       </View>
     );
 
-    if (this.props.cocktailsError) {
+    if (cocktails.cocktailsError) {
       vistaContenido = (
-        <View style={styles.container}>
+        <View style={[styles.container, { justifyContent: 'space-around' }]}>
           <Image resizeMode="cover" source={iconError} style={styles.imagen} />
           <Text style={[styles.info, { fontFamily: fonts.regular }]} textBreakStrategy="balanced">
             Se a producido un error
           </Text>
+          <Button text="REINTENTAR" onPress={() => obtenerCocktails} />
         </View>
       );
-    } else if (this.props.cocktailsObtenidos) {
+    } else if (cocktails.cocktailsObtenidos) {
+      if (!seteados)
+        this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });
+      //---------------------------------------
       vistaContenido = (
         <View style={styles.container}>
           <View style={styles.containerBuscador}>
-            <TextInput placeholder="Buscar Cocktail" style={styles.buscador} />
+            <TextInput
+              placeholder="Buscar Cocktail"
+              style={styles.buscador}
+              onChangeText={text => this.entradaTextoHandler(text)}
+            />
             <Image resizeMode="cover" source={iconLupa} style={styles.lupa} />
           </View>
           <FlatList
             style={styles.lista}
             showsVerticalScrollIndicator={false}
-            data={test}
+            data={cocktailsFiltrados}
             renderItem={info => <CocktailView coctail={info.item} CID={componentId} />}
           />
         </View>
       );
-    } */
-
-    const test = [
-      {
-        key: '0',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['tequila y paco', 'otra droga', 'more droga'],
-      },
-      {
-        key: '1',
-        titulo: 'Paco en paco',
-        imagen: NextDotsLogo,
-        ingredientes: ['zapato', 'very much'],
-      },
-      {
-        key: '2',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '3',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '4',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '5',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '6',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '7',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-    ];
-    return (
-      <View style={styles.container}>
-        <Image resizeMode="cover" source={iconError} style={styles.imagen} />
-        <Text style={[styles.info, { fontFamily: fonts.regular }]} textBreakStrategy="balanced">
-          Se a producido un error
-        </Text>
-      </View>
-    );
+    }
+    //---------------------------------------------------------------------------------------
+    return <View style={{ flex: 1 }}>{vistaContenido}</View>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    cocktails: state.cocktails.cocktails,
+    cocktails: state.cocktails,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    obtenerCocktails: () => dispatch(buscarCocktails()),
-  };
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      obtenerCocktails: buscarCocktails,
+    },
+    dispatch
+  );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CocktailList);
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CocktailList)
+);
