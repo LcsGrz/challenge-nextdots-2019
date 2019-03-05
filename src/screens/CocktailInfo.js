@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
 import { ScrollView, StyleSheet } from 'react-native';
 import fonts from '../theme/fonts';
 import { CocktailDetail } from '../components/index';
 import colors from '../theme/Colors';
+import { infoCerrada } from '../actions/cocktails';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +42,11 @@ class CocktailInfo extends React.Component {
     },
   });
 
+  componentWillUnmount() {
+    const cerrarInfo = this.props;
+    cerrarInfo();
+  }
+
   render() {
     return (
       <ScrollView
@@ -52,4 +60,17 @@ class CocktailInfo extends React.Component {
   }
 }
 
-export default CocktailInfo;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      cerrarInfo: infoCerrada,
+    },
+    dispatch
+  );
+
+export default compose(
+  connect(
+    null,
+    mapDispatchToProps
+  )(CocktailInfo)
+);

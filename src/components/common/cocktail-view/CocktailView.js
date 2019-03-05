@@ -1,18 +1,26 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable */
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
 import { TouchableOpacity, Text, View } from 'react-native';
 import styles from './styles';
 import fonts from '../../../theme/fonts';
 import Image from '../image-on-loading';
 import cc from './aasdd.jpg';
 import { goToPage } from '../../../screens/index';
+import { infoAbierta } from '../../../actions/cocktails';
 
 class CocktailView extends React.Component {
+  
   MostrarInfoCompleta = () => {
-    const { CID } = this.props;
-    goToPage(CID, 'cocktailInfo', null);
-  };
+    const { CID,infoAbierta,abrirInfo } = this.props;
+    if(!infoAbierta){
+      abrirInfo();
+      goToPage(CID, 'cocktailInfo', null);
+    }
+  }
+  
 
   render() {
     const { titulo, imagen, ingredientes } = this.props.coctail;
@@ -59,4 +67,23 @@ class CocktailView extends React.Component {
   }
 }
 
-export default CocktailView;
+const mapStateToProps = state => {
+  return {
+    infoAbierta: state.cocktails.infoAbierta,
+  };
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      abrirInfo: infoAbierta,
+    },
+    dispatch
+  );
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CocktailView)
+);
