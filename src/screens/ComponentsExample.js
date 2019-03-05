@@ -67,15 +67,13 @@ class Welcome extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.componentsContainer}>
-          <Typography variant={TypographyVariants.bodyTitle}>Typography example</Typography>
+          <Typography variant={TypographyVariants.bodyTitle}>
+            Primero debes iniciar sesion
+          </Typography>
           <Spacing variant={SpacingVariants.xLarge} />
-          <Button text="SIGN IN" style={styles.buttonSignIn} />
+          <Button text="ENTRAR" style={styles.buttonSignIn} />
           <Spacing variant={SpacingVariants.smallPlus} />
-          <Button
-            text="SIGN UP FOR FREE"
-            style={styles.buttonSignUp}
-            textColor={colors.principal}
-          />
+          <Button text="REGISTRARSE" style={styles.buttonSignUp} textColor={colors.principal} />
           <Spacing variant={SpacingVariants.smallPlus} />
           <View style={styles.logoContainer}>
             <Image source={NextDotsLogo} resizeMode="contain" style={styles.logo} />
@@ -89,7 +87,7 @@ class Welcome extends React.Component {
             />
           </View>
         </View>
-        <Button text="Go back" onPress={() => goBack(componentId)} />
+        <Button text="VOLVER" onPress={() => goBack(componentId)} />
       </SafeAreaView>
     );
   }

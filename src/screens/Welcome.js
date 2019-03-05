@@ -29,13 +29,11 @@ class Welcome extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.textContainer}>
-          <Typography variant={TypographyVariants.bodyTitle}>
-            React Native BoilerPlate Marzo 2019 0.56
-          </Typography>
+          <Typography variant={TypographyVariants.bodyTitle}>NextDots challenge 2019</Typography>
           <Spacing variant={SpacingVariants.smallPlus} />
-          <Typography>nextdots.com</Typography>
+          <Typography>Lucas Gerez</Typography>
         </View>
-        <Button text="Show components" onPress={() => goToPage(componentId, 'componentsExample')} />
+        <Button text="Ver aplicacion" onPress={() => goToPage(componentId, 'componentsExample')} />
       </SafeAreaView>
     );
   }
