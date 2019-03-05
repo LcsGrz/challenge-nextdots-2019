@@ -5,3 +5,6 @@ export { default as Spacing } from './common/spacing/Spacing';
 export { variants as SpacingVariants } from './common/spacing/Spacing';
 export { default as Typography } from './common/typography/Typography';
 export { variants as TypographyVariants } from './common/typography/Typography';
+
+export { default as CocktailView } from './common/cocktail-view/CocktailView';
+export { default as CocktailDetail } from './common/cocktail-detail/CocktailDetail';

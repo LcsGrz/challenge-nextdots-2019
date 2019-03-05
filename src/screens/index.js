@@ -2,7 +2,8 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import store from '../store';
 import Welcome from './Welcome';
-import ComponentsExample from './ComponentsExample';
+import CocktailInfo from './CocktailInfo';
+import CocktailList from './CocktailList';
 
 export const initApp = () =>
   Navigation.setRoot({
@@ -41,5 +42,6 @@ export const goBack = componentId => Navigation.pop(componentId);
 // prettier-ignore
 export function registerScreens() {
   Navigation.registerComponentWithRedux( 'welcome', () => Welcome, Provider, store );
-  Navigation.registerComponentWithRedux( 'componentsExample', () => ComponentsExample, Provider, store );
+  Navigation.registerComponentWithRedux( 'cocktailList', () => CocktailList, Provider, store );
+  Navigation.registerComponentWithRedux('cocktailInfo',() => CocktailInfo,Provider,store);
 }
