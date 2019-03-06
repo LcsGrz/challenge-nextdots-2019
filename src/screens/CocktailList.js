@@ -101,7 +101,7 @@ class CocktailList extends React.Component {
           <Text style={[styles.info, { fontFamily: fonts.regular }]} textBreakStrategy="balanced">
             Se a producido un error
           </Text>
-          <Button text="REINTENTAR" onPress={() => obtenerCocktails} />
+          <Button text="REINTENTAR" onPress={() => obtenerCocktails()} />
         </View>
       );
     } else if (cocktails.cocktailsObtenidos) {

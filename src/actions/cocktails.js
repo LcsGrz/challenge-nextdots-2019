@@ -87,7 +87,7 @@ export const buscarCocktails = () => {
       method: 'POST',
     })
       .catch(err => {
-        alert(err);
+        console.log(err);
         dispatch(cocktailError());
       })
       .then(res => res.json())
