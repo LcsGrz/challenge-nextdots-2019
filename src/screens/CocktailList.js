@@ -60,7 +60,7 @@ class CocktailList extends React.Component {
     seteados: false,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { cocktails, obtenerCocktails } = this.props;
     //---------------------------------------
     if (!cocktails.cocktailsObtenidos) obtenerCocktails();
@@ -73,7 +73,7 @@ class CocktailList extends React.Component {
       this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });
     } else {
       let cocktailsFiltrados = cocktails.listaCocktails.filter(item => {
-        const nombre = item.titulo.toUpperCase();
+        const nombre = item.Titulo.toUpperCase();
         return nombre.indexOf(texto.toUpperCase()) > -1;
       });
 
@@ -106,6 +106,7 @@ class CocktailList extends React.Component {
       );
     } else if (cocktails.cocktailsObtenidos) {
       if (!seteados)
+        // Esto levanta el warning en la app
         this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });
       //---------------------------------------
       vistaContenido = (

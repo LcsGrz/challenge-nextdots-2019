@@ -7,25 +7,24 @@ import { TouchableOpacity, Text, View } from 'react-native';
 import styles from './styles';
 import fonts from '../../../theme/fonts';
 import Image from '../image-on-loading';
-import cc from './aasdd.jpg';
 import { goToPage } from '../../../screens/index';
 import { infoAbierta } from '../../../actions/cocktails';
 
 class CocktailView extends React.Component {
   
   MostrarInfoCompleta = () => {
-    const { CID,infoAbierta,abrirInfo } = this.props;
+    const { CID,infoAbierta,abrirInfo,coctail } = this.props;
     if(!infoAbierta){
       abrirInfo();
-      goToPage(CID, 'cocktailInfo', null);
+      goToPage(CID, 'cocktailInfo', {coctail});
     }
   }
   
 
   render() {
-    const { titulo, imagen, ingredientes } = this.props.coctail;
+    const { Titulo, Imagen, Ingredientes } = this.props.coctail;
     //-------------------------------------------------------------------
-    const ingredientesRestantes = ingredientes.length - 2;
+    const ingredientesRestantes = Ingredientes.length - 2;
     let cIngredientes = null;
     if (ingredientesRestantes > 1) {
       cIngredientes = `Y ${ingredientesRestantes} ingredientes mas...`;
@@ -40,19 +39,19 @@ class CocktailView extends React.Component {
       >
         <View style={styles.contenedor}>
           <Text style={[styles.titulo, { fontFamily: fonts.regular }]} textBreakStrategy="balanced">
-            {titulo}
+            {Titulo}
           </Text>
           <Text
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
             textBreakStrategy="balanced"
           >
-            {`• ${ingredientes[0]}`}
+            {`• ${Ingredientes[0]}`}
           </Text>
           <Text
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
             textBreakStrategy="balanced"
           >
-            {`• ${ingredientes[1]}`}
+            {`• ${Ingredientes[1]}`}
           </Text>
           <Text
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
@@ -61,7 +60,7 @@ class CocktailView extends React.Component {
             {cIngredientes}
           </Text>
         </View>
-        <Image resizeMode="cover" source={cc} style={[styles.imagen, styles.redondeado]} />
+        <Image resizeMode="cover" source={Imagen} style={[styles.imagen, styles.redondeado]} />
       </TouchableOpacity>
     );
   }

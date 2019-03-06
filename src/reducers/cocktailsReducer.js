@@ -1,6 +1,6 @@
 import {
   BUSCAR_COCKTAILS,
-  COCKTAILS_OBTENIDOS,
+  COCKTAIL_OBTENIDO,
   COCKTAILS_ERROR,
   INFO_ABIERTA,
   INFO_CERRADA,
@@ -22,12 +22,11 @@ export default (state = initialState, action) => {
         cocktailsObtenidos: false,
         cocktailsError: false,
       };
-    case COCKTAILS_OBTENIDOS:
+    case COCKTAIL_OBTENIDO:
       return {
         ...state,
-        listaCocktails: action.lista,
+        listaCocktails: action.cocktails,
         cocktailsObtenidos: true,
-        cocktailsError: false,
       };
     case COCKTAILS_ERROR:
       return {

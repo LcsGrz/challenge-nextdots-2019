@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 import styles from './styles';
 import fonts from '../../../theme/fonts';
-import cc from '../cocktail-view/aasdd.jpg';
+import cc from './asd.png';
 
 class CocktailDetail extends React.Component {
   render() {

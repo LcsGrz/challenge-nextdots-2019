@@ -1,66 +1,16 @@
+/* eslint-disable */
 import {
   BUSCAR_COCKTAILS,
-  COCKTAILS_OBTENIDOS,
+  COCKTAIL_OBTENIDO,
   COCKTAILS_ERROR,
   INFO_ABIERTA,
   INFO_CERRADA,
 } from './types';
-import NextDotsLogo from '../assets/images/common/nextDotsLogo.png';
 
-export const cocktailsObtenidos = lista => {
+export const cocktailsObtenidos = cocktails => {
   return {
-    type: COCKTAILS_OBTENIDOS,
-    asd: lista,
-    lista: [
-      {
-        key: '0',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['tequila y paco', 'otra droga', 'more droga'],
-      },
-      {
-        key: '1',
-        titulo: 'Paco en paco',
-        imagen: NextDotsLogo,
-        ingredientes: ['zapato', 'very much'],
-      },
-      {
-        key: '2',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '3',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '4',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '5',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '6',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-      {
-        key: '7',
-        titulo: 'Apple Grande',
-        imagen: NextDotsLogo,
-        ingredientes: ['asd', 'eeeee', 'more droga', 'more droga', 'more droga'],
-      },
-    ],
+    type: COCKTAIL_OBTENIDO,
+    cocktails,
   };
 };
 
@@ -70,12 +20,6 @@ const resetState = () => {
   };
 };
 
-export const buscarCocktails = () => {
-  return dispatch => {
-    dispatch(resetState());
-    dispatch(cocktailsObtenidos([]));
-  };
-};
 export const cocktailError = () => {
   return {
     type: COCKTAILS_ERROR,
@@ -89,5 +33,65 @@ export const infoAbierta = () => {
 export const infoCerrada = () => {
   return {
     type: INFO_CERRADA,
+  };
+};
+
+const guardarInformacion = cocktail => {
+  return dispatch => {
+    let listaCocktails = [];
+    Promise.all(
+      cocktail.map(c => {
+        c = c.drinks[0];
+        let ingredientes = [];
+        let cantidades = [];
+        for (let x = 1; x <= 15; x++) {
+          if (c[`strIngredient${x}`] !== '') {
+            ingredientes.push(c[`strIngredient${x}`]);
+            cantidades.push(c[`strMeasure${x}`]);
+          }
+        }
+        listaCocktails.push({
+          ID: c.idDrink,
+          Titulo: c.strDrink,
+          Imagen: c.strDrinkThumb,
+          Ingredientes: ingredientes,
+          Cantidades: cantidades,
+          Preparacion: c.strInstructions,
+        });
+      })
+    ).then(() => {
+      dispatch(cocktailsObtenidos(listaCocktails));
+    });
+  };
+};
+
+const buscarMasInformacion = datos => {
+  return dispatch => {
+    Promise.all(
+      datos.map(d =>
+        fetch(`http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${d.idDrink}`).then(res =>
+          res.json()
+        )
+      )
+    ).then(drinks => {
+      dispatch(guardarInformacion(drinks));
+    });
+  };
+};
+
+export const buscarCocktails = () => {
+  return dispatch => {
+    dispatch(resetState());
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass', {
+      method: 'POST',
+    })
+      .catch(err => {
+        alert(err);
+        dispatch(cocktailError());
+      })
+      .then(res => res.json())
+      .then(parsedRes => {
+        dispatch(buscarMasInformacion(parsedRes.drinks));
+      });
   };
 };
