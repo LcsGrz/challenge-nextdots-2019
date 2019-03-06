@@ -60,7 +60,7 @@ class CocktailView extends React.Component {
             {cIngredientes}
           </Text>
         </View>
-        <Image resizeMode="cover" source={Imagen} style={[styles.imagen, styles.redondeado]} />
+        <Image resizeMode="cover" source={{uri: Imagen}} style={[styles.imagen, styles.redondeado]} />
       </TouchableOpacity>
     );
   }
