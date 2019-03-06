@@ -35,7 +35,14 @@ export const goToPage = (componentId, page, props) => {
     },
   });
 };
-
+export const goToPageOptionsCustom = (componentId, page, options) => {
+  Navigation.push(componentId, {
+    component: {
+      name: page,
+      options,
+    },
+  });
+};
 export const goBack = componentId => Navigation.pop(componentId);
 
 // register all screens of the app (including internal ones)

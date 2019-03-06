@@ -1,20 +1,33 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 import styles from './styles';
 import fonts from '../../../theme/fonts';
-import cc from './asd.png';
 
 class CocktailDetail extends React.Component {
   render() {
+    const { cocktail } = this.props;
+    const { Imagen, Ingredientes, Cantidades, Preparacion } = cocktail;
+    //----------------------------------------------------------
+    let ingCant = [];
+    for (let c = 0; c < Ingredientes.length; c++) {
+      ingCant.push(`${Ingredientes[c]}\n`);
+      ingCant.push(`${Cantidades[c]}\n`);
+    }
+    //----------------------------------------------------------
     return (
       <View style={[styles.sombra, styles.redondeado, styles.componente]}>
-        <Image resizeMode="cover" source={cc} style={[styles.imagen, styles.redondeado]} />
+        <Image
+          resizeMode="cover"
+          source={{ uri: Imagen }}
+          style={[styles.imagen, styles.redondeado]}
+        />
         <View style={styles.contenedor}>
           <Text
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
             textBreakStrategy="balanced"
           >
-            asdjkfhasdjkfhasdkjfhaskdjfhaskjdfhaksjdfhkajsdhfkajsdhfkjasdhkfjahsdkjfhakjsdhfkajshdfjahsdkjfahskjdhfafajksdfhkajhsdfkjahsdjfhakjsdhkfjahsdkfjahsdkjasjhdfkahsdkfhakjsdhfkjsahdlfhaskjdfhkajshdfkjahsdkfhkasdf
+            {ingCant}
           </Text>
           <Text
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
@@ -26,31 +39,7 @@ class CocktailDetail extends React.Component {
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
             textBreakStrategy="balanced"
           >
-            asdjkfhasdjkfhasdkjfhaskdjfhaskjdfhaksjdfhkajsdhfkajsdhfkjasdhkfjahsdkjfhakjsdhfkajshdfjahsdkjfahskjdhfafajksdfhkajhsdfkjahsdjfhakjsdhkfjahsdkfjahsdkjasjhdfkahsdkfhakjsdhfkjsahdlfhaskjdfhkajshdfkjahsdkfhkasdf
-          </Text>
-          <Text
-            style={[styles.ingrediente, { fontFamily: fonts.regular }]}
-            textBreakStrategy="balanced"
-          >
-            asdjkfhasdjkfhasdkjfhaskdjfhaskjdfhaksjdfhkajsdhfkajsdhfkjasdhkfjahsdkjfhakjsdhfkajshdfjahsdkjfahskjdhfafajksdfhkajhsdfkjahsdjfhakjsdhkfjahsdkfjahsdkjasjhdfkahsdkfhakjsdhfkjsahdlfhaskjdfhkajshdfkjahsdkfhkasdf
-          </Text>
-          <Text
-            style={[styles.ingrediente, { fontFamily: fonts.regular }]}
-            textBreakStrategy="balanced"
-          >
-            asdjkfhasdjkfhasdkjfhaskdjfhaskjdfhaksjdfhkajsdhfkajsdhfkjasdhkfjahsdkjfhakjsdhfkajshdfjahsdkjfahskjdhfafajksdfhkajhsdfkjahsdjfhakjsdhkfjahsdkfjahsdkjasjhdfkahsdkfhakjsdhfkjsahdlfhaskjdfhkajshdfkjahsdkfhkasdf
-          </Text>
-          <Text
-            style={[styles.ingrediente, { fontFamily: fonts.regular }]}
-            textBreakStrategy="balanced"
-          >
-            asdjkfhasdjkfhasdkjfhaskdjfhaskjdfhaksjdfhkajsdhfkajsdhfkjasdhkfjahsdkjfhakjsdhfkajshdfjahsdkjfahskjdhfafajksdfhkajhsdfkjahsdjfhakjsdhkfjahsdkfjahsdkjasjhdfkahsdkfhakjsdhfkjsahdlfhaskjdfhkajshdfkjahsdkfhkasdf
-          </Text>
-          <Text
-            style={[styles.ingrediente, { fontFamily: fonts.regular }]}
-            textBreakStrategy="balanced"
-          >
-            asdjkfhasdjkfhasdkjfhaskdjfhaskjdfhaksjdfhkajsdhfkajsdhfkjasdhkfjahsdkjfhakjsdhfkajshdfjahsdkjfahskjdhfafajksdfhkajhsdfkjahsdjfhakjsdhkfjahsdkfjahsdkjasjhdfkahsdkfhakjsdhfkjsahdlfhaskjdfhkajshdfkjahsdkfhkasdf
+            {Preparacion}
           </Text>
         </View>
       </View>

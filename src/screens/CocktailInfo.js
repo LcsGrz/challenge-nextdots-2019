@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 import { compose, bindActionCreators } from 'redux';
 import { ScrollView, StyleSheet } from 'react-native';
 import fonts from '../theme/fonts';
@@ -32,7 +34,7 @@ class CocktailInfo extends React.Component {
         translucent: false,
       },
       title: {
-        text: 'Dashboard',
+        text: 'COCKTAIL',
         alignment: 'center',
         color: 'white',
         fontFamily: fonts.regular,
@@ -42,23 +44,42 @@ class CocktailInfo extends React.Component {
     },
   });
 
+  componentWillMount() {
+    Navigation.mergeOptions(this.props.componentId, {
+      topBar: {
+        title: {
+          text: this.props.cocktailActivo.Titulo,
+        },
+      },
+    });
+  }
+
   componentWillUnmount() {
-    const cerrarInfo = this.props;
+    const { cerrarInfo } = this.props;
     cerrarInfo();
   }
 
   render() {
+    const { cocktailActivo } = this.props;
+    //--------------------------------------------------
+    //--------------------------------------------------
     return (
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <CocktailDetail />
+        <CocktailDetail cocktail={cocktailActivo} />
       </ScrollView>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    cocktailActivo: state.cocktails.cocktailActivo,
+  };
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -70,7 +91,7 @@ const mapDispatchToProps = dispatch =>
 
 export default compose(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(CocktailInfo)
 );

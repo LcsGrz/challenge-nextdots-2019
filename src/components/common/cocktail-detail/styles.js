@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   imagen: {
     height: 300,
     width: '100%',
+    marginBottom: 10,
   },
   titulo: {
     fontSize: 25,
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
   ingrediente: {
     fontSize: 16,
     fontWeight: '400',
+    marginBottom: 5,
   },
 });
 

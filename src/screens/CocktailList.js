@@ -123,6 +123,7 @@ class CocktailList extends React.Component {
             style={styles.lista}
             showsVerticalScrollIndicator={false}
             data={cocktailsFiltrados}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={info => <CocktailView coctail={info.item} CID={componentId} />}
           />
         </View>

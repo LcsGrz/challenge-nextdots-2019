@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
@@ -11,15 +11,13 @@ import { goToPage } from '../../../screens/index';
 import { infoAbierta } from '../../../actions/cocktails';
 
 class CocktailView extends React.Component {
-  
   MostrarInfoCompleta = () => {
-    const { CID,infoAbierta,abrirInfo,coctail } = this.props;
-    if(!infoAbierta){
-      abrirInfo();
-      goToPage(CID, 'cocktailInfo', {coctail});
+    const { CID, infoAbiertaState, abrirInfo, coctail } = this.props;
+    if (!infoAbiertaState) {
+      abrirInfo(coctail);
+      goToPage(CID, 'cocktailInfo');
     }
-  }
-  
+  };
 
   render() {
     const { Titulo, Imagen, Ingredientes } = this.props.coctail;
@@ -60,7 +58,11 @@ class CocktailView extends React.Component {
             {cIngredientes}
           </Text>
         </View>
-        <Image resizeMode="cover" source={{uri: Imagen}} style={[styles.imagen, styles.redondeado]} />
+        <Image
+          resizeMode="cover"
+          source={{ uri: Imagen }}
+          style={[styles.imagen, styles.redondeado]}
+        />
       </TouchableOpacity>
     );
   }
@@ -68,7 +70,7 @@ class CocktailView extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    infoAbierta: state.cocktails.infoAbierta,
+    infoAbiertaState: state.cocktails.infoAbierta,
   };
 };
 

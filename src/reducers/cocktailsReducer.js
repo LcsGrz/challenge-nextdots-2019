@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   listaCocktails: [],
+  cocktailActivo: null,
   cocktailsObtenidos: false,
   cocktailsError: false,
   infoAbierta: false,
@@ -38,6 +39,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         infoAbierta: true,
+        cocktailActivo: action.cocktailActivo,
       };
     case INFO_CERRADA:
       return {

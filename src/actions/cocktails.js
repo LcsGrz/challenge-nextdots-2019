@@ -25,9 +25,10 @@ export const cocktailError = () => {
     type: COCKTAILS_ERROR,
   };
 };
-export const infoAbierta = () => {
+export const infoAbierta = cocktailActivo => {
   return {
     type: INFO_ABIERTA,
+    cocktailActivo
   };
 };
 export const infoCerrada = () => {
@@ -45,7 +46,7 @@ const guardarInformacion = cocktail => {
         let ingredientes = [];
         let cantidades = [];
         for (let x = 1; x <= 15; x++) {
-          if (c[`strIngredient${x}`] !== '') {
+          if (c[`strIngredient${x}`]) {
             ingredientes.push(c[`strIngredient${x}`]);
             cantidades.push(c[`strMeasure${x}`]);
           }
