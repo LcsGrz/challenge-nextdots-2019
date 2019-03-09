@@ -7,10 +7,7 @@ class Cocktail {
     this.ingredients = ingredients;
   }
 
-  nameMatch(text) {
-    const name = this.name.toUpperCase();
-    return name.indexOf(text.toUpperCase()) > -1;
-  }
+  nameMatch = text => this.name.toUpperCase().indexOf(text.toUpperCase()) > -1;
 
   static fromJSON(drink) {
     let ingredients = [];

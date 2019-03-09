@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { COCKTAIL_OBTENIDO, COCKTAILS_ERROR, INFO_ABIERTA, INFO_CERRADA,SET_FILTER } from './types';
+import { COCKTAILS_OBTAINED, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
 export const cocktailsObtenidos = cocktails => {
   return {
-    type: COCKTAIL_OBTENIDO,
+    type: COCKTAILS_OBTAINED,
     cocktails,
   };
 };
@@ -16,13 +16,13 @@ export const cocktailError = () => {
 };
 export const infoAbierta = cocktailActivo => {
   return {
-    type: INFO_ABIERTA,
+    type: INFO_OPEN,
     cocktailActivo,
   };
 };
 export const infoCerrada = () => {
   return {
-    type: INFO_CERRADA,
+    type: INFO_CLOSE,
   };
 };
 export const setFilter = (text) => {
@@ -36,7 +36,7 @@ const guardarInformacion = cocktail => {
     let listaCocktails = [];
     Promise.all(
       cocktail.map(c => {
-        listaCocktails.push(Cocktail.fromJSON(c.drinks[0]));
+        listaCocktails = [...listaCocktails,Cocktail.fromJSON(c.drinks[0])];
       })
     ).then(() => {
       dispatch(cocktailsObtenidos(listaCocktails));

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const cocktailsSelector = state => state.cocktails.listaCocktails;
+const cocktailsSelector = state => state.cocktails.cocktailList;
 
 const getMatchedCocktails = state => {
   return createSelector(

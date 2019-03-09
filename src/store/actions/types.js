@@ -1,7 +1,5 @@
-export const TYPE_EXAMPLE = 'TYPE_EXAMPLE';
-//-----------------------------------------------------------
-export const COCKTAIL_OBTENIDO = 'COCKTAIL_OBTENIDO';
+export const COCKTAILS_OBTAINED = 'COCKTAILS_OBTAINED';
 export const COCKTAILS_ERROR = 'COCKTAILS_ERROR';
-export const INFO_ABIERTA = 'INFO_ABIERTA';
-export const INFO_CERRADA = 'INFO_CERRADA';
+export const INFO_OPEN = 'INFO_OPEN';
+export const INFO_CLOSE = 'INFO_CLOSE';
 export const SET_FILTER = 'SET_FILTER';

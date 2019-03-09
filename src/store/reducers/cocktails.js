@@ -1,13 +1,13 @@
 import {
-  COCKTAIL_OBTENIDO,
+  COCKTAILS_OBTAINED,
   COCKTAILS_ERROR,
-  INFO_ABIERTA,
-  INFO_CERRADA,
+  INFO_OPEN,
+  INFO_CLOSE,
   SET_FILTER,
 } from '../actions/types';
 
 const initialState = {
-  listaCocktails: [],
+  cocktailList: [],
   filter: '',
   cocktailActivo: null,
   cocktailsError: false,
@@ -16,10 +16,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case COCKTAIL_OBTENIDO:
+    case COCKTAILS_OBTAINED:
       return {
         ...state,
-        listaCocktails: action.cocktails,
+        cocktailList: action.cocktails,
       };
     case SET_FILTER:
       return {
@@ -31,13 +31,13 @@ export default (state = initialState, action) => {
         ...state,
         cocktailsError: true,
       };
-    case INFO_ABIERTA:
+    case INFO_OPEN:
       return {
         ...state,
         infoAbierta: true,
         cocktailActivo: action.cocktailActivo,
       };
-    case INFO_CERRADA:
+    case INFO_CLOSE:
       return {
         ...state,
         infoAbierta: false,
