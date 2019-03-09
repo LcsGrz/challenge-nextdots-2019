@@ -6,7 +6,7 @@ import iconError from '../../assets/images/common/error.png';
 
 const Error = retry => (
   <View style={[styles.container, { justifyContent: 'space-around' }]}>
-    <Image resizeMode="cover" source={iconError} style={styles.imagen} />
+    <Image resizeMode="cover" source={iconError} style={styles.image} />
     <Text style={styles.info} textBreakStrategy="balanced">
       Oops... An error occurred
     </Text>

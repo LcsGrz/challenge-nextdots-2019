@@ -11,6 +11,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   info: { fontFamily: fonts.regular, fontSize: 25, fontWeight: '500', color: 'white' },
-  imagen: { width: 300, height: 300 },
+  image: { width: 300, height: 300 },
 });
 export default styles;

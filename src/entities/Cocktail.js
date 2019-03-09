@@ -9,6 +9,19 @@ class Cocktail {
 
   nameMatch = text => this.name.toUpperCase().indexOf(text.toUpperCase()) > -1;
 
+  ingredientsToText = () => this.ingredients.join('\n');
+
+  remainingIngredients() {
+    const remaining = this.ingredients.length - 2;
+    let quantity = null;
+    if (remaining > 1) {
+      quantity = `And ${remaining} more ingredients...`;
+    } else if (remaining === 1) {
+      quantity = `And ${remaining} more ingredient...`;
+    }
+    return quantity;
+  }
+
   static fromJSON(drink) {
     let ingredients = [];
     for (let x = 1; x <= 15; x++) {

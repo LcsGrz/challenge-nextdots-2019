@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 20,
   },
-  buscador: {
+  finder: {
     width: '80%',
     fontSize: 25,
     fontWeight: '400',
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 10,
   },
-  containerBuscador: {
+  finderContainer: {
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   lupa: { height: 30, width: 30, marginRight: 10 },
-  lista: { width: '100%', padding: 20 },
+  list: { width: '100%', padding: 20 },
 });
 export default styles;

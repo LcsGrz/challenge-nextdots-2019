@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
+import fonts from '../../../theme/fonts';
 
 const styles = StyleSheet.create({
-  sombra: {
+  shadow: {
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -11,10 +12,10 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
   },
-  redondeado: {
+  rounded: {
     borderRadius: 4,
   },
-  componente: {
+  component: {
     height: 200,
     width: '100%',
     backgroundColor: 'white',
@@ -23,19 +24,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  contenedor: {
+  container: {
     height: '100%',
     width: '50%',
   },
-  imagen: {
+  image: {
     height: '100%',
     width: '44%',
   },
-  titulo: {
+  title: {
+    fontFamily: fonts.regular,
     fontSize: 25,
     fontWeight: '500',
   },
-  ingrediente: {
+  ingredient: {
+    fontFamily: fonts.regular,
     fontSize: 16,
     fontWeight: '400',
   },
