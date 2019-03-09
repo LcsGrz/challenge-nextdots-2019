@@ -8,7 +8,11 @@ class Cocktail {
     this.amounts = amounts;
   }
 
-  nameMatch = text => this.name.toUpperCase().indexOf(text.toUpperCase()) > -1;
+  nameMatch(text) {
+    console.log(this.name);
+    const name = this.name.toUpperCase();
+    return name.indexOf(text.toUpperCase()) > -1;
+  }
 
   static fromJSON(drink) {
     let ingredients = [];
@@ -19,7 +23,17 @@ class Cocktail {
         amounts.push(drink[`strMeasure${x}`]);
       }
     }
-
+    console.log('new item');
+    console.log(
+      new Cocktail(
+        drink.strDrink,
+        drink.strDrinkThumb,
+        drink.idDrink,
+        drink.strInstructions,
+        ingredients,
+        amounts
+      )
+    );
     return new Cocktail(
       drink.strDrink,
       drink.strDrinkThumb,

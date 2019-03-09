@@ -12,11 +12,12 @@ import {
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import colors from '../theme/Colors';
-import { CocktailView, Button } from '../components';
+import { CocktailCard, Button } from '../components';
 import fonts from '../theme/fonts';
 import iconLupa from '../assets/images/common/lupa.png';
 import iconError from '../assets/images/common/error.png';
-import { buscarCocktails } from '../store/actions/cocktails';
+import { buscarCocktails, setFilter } from '../store/actions/cocktails';
+import getMatchedCocktails from '../store/selectors/cocktails';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,35 +56,20 @@ const styles = StyleSheet.create({
 class CocktailList extends React.Component {
   static options = () => ({ topBar: { visible: false, height: 0 } });
 
-  state = {
-    cocktailsFiltrados: [],
-    seteados: false,
-  };
-
   componentWillMount() {
-    const { cocktails, obtenerCocktails } = this.props;
+    const { cocktails, findCocktails } = this.props;
     //---------------------------------------
-    if (cocktails.listaCocktails.length === 0) obtenerCocktails();
+    if (cocktails.listaCocktails.length === 0) findCocktails();
   }
 
-  entradaTextoHandler = texto => {
-    const { cocktails } = this.props;
+  textHandler = text => {
+    const { filterCocktails } = this.props;
     //---------------------------------------
-    if (texto.length === 0) {
-      this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });
-    } else {
-      let cocktailsFiltrados = cocktails.listaCocktails.filter(item => {
-        const nombre = item.Titulo.toUpperCase();
-        return nombre.indexOf(texto.toUpperCase()) > -1;
-      });
-
-      this.setState({ cocktailsFiltrados });
-    }
+    filterCocktails(text);
   };
 
   render() {
-    const { componentId, cocktails, obtenerCocktails } = this.props;
-    let { cocktailsFiltrados, seteados } = this.state;
+    const { componentId, cocktails, findCocktails, cocktailsFiltereds } = this.props;
     //---------------------------------------------------------------------------------------
     let vistaContenido = (
       <View style={styles.container}>
@@ -101,13 +87,10 @@ class CocktailList extends React.Component {
           <Text style={[styles.info, { fontFamily: fonts.regular }]} textBreakStrategy="balanced">
             Se a producido un error
           </Text>
-          <Button text="REINTENTAR" onPress={() => obtenerCocktails()} />
+          <Button text="REINTENTAR" onPress={() => findCocktails()} />
         </View>
       );
     } else if (cocktails.listaCocktails.length > 0) {
-      if (!seteados)
-        // Esto levanta el warning en la app
-        this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });
       //---------------------------------------
       vistaContenido = (
         <View style={styles.container}>
@@ -115,16 +98,16 @@ class CocktailList extends React.Component {
             <TextInput
               placeholder="Buscar Cocktail"
               style={styles.buscador}
-              onChangeText={text => this.entradaTextoHandler(text)}
+              onChangeText={text => this.textHandler(text)}
             />
             <Image resizeMode="cover" source={iconLupa} style={styles.lupa} />
           </View>
           <FlatList
             style={styles.lista}
             showsVerticalScrollIndicator={false}
-            data={cocktailsFiltrados}
+            data={cocktailsFiltereds}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={info => <CocktailView coctail={info.item} CID={componentId} />}
+            renderItem={info => <CocktailCard coctail={info.item} CID={componentId} />}
           />
         </View>
       );
@@ -137,13 +120,15 @@ class CocktailList extends React.Component {
 const mapStateToProps = state => {
   return {
     cocktails: state.cocktails,
+    cocktailsFiltereds: getMatchedCocktails(state),
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      obtenerCocktails: buscarCocktails,
+      findCocktails: buscarCocktails,
+      filterCocktails: setFilter,
     },
     dispatch
   );

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { COCKTAIL_OBTENIDO, COCKTAILS_ERROR, INFO_ABIERTA, INFO_CERRADA } from './types';
+import { COCKTAIL_OBTENIDO, COCKTAILS_ERROR, INFO_ABIERTA, INFO_CERRADA,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
 export const cocktailsObtenidos = cocktails => {
@@ -25,29 +25,18 @@ export const infoCerrada = () => {
     type: INFO_CERRADA,
   };
 };
-
+export const setFilter = (text) => {
+  return{
+    type: SET_FILTER,
+    filter: text
+  };
+};
 const guardarInformacion = cocktail => {
   return dispatch => {
     let listaCocktails = [];
     Promise.all(
       cocktail.map(c => {
-        c = c.drinks[0];
-        let ingredientes = [];
-        let cantidades = [];
-        for (let x = 1; x <= 15; x++) {
-          if (c[`strIngredient${x}`]) {
-            ingredientes.push(c[`strIngredient${x}`]);
-            cantidades.push(c[`strMeasure${x}`]);
-          }
-        }
-        listaCocktails.push({
-          ID: c.idDrink,
-          Titulo: c.strDrink,
-          Imagen: c.strDrinkThumb,
-          Ingredientes: ingredientes,
-          Cantidades: cantidades,
-          Preparacion: c.strInstructions,
-        });
+        listaCocktails.push(Cocktail.fromJSON(c.drinks[0]));
       })
     ).then(() => {
       dispatch(cocktailsObtenidos(listaCocktails));

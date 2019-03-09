@@ -2,7 +2,7 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import store from '../store/store';
 import Welcome from './Welcome';
-import CocktailInfo from './CocktailInfo';
+import CocktailDetail from './CocktailDetail';
 import CocktailList from './CocktailList';
 
 export const initApp = () =>
@@ -45,10 +45,9 @@ export const goToPageOptionsCustom = (componentId, page, options) => {
 };
 export const goBack = componentId => Navigation.pop(componentId);
 
-// register all screens of the app (including internal ones)
 // prettier-ignore
 export function registerScreens() {
   Navigation.registerComponent( 'welcome', () => Welcome);
   Navigation.registerComponentWithRedux( 'cocktailList', () => CocktailList, Provider, store );
-  Navigation.registerComponentWithRedux('cocktailInfo',() => CocktailInfo,Provider,store);
+  Navigation.registerComponentWithRedux('CocktailDetail',() => CocktailDetail,Provider,store);
 }

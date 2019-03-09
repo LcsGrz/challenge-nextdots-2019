@@ -1,7 +1,14 @@
-import { COCKTAIL_OBTENIDO, COCKTAILS_ERROR, INFO_ABIERTA, INFO_CERRADA } from '../actions/types';
+import {
+  COCKTAIL_OBTENIDO,
+  COCKTAILS_ERROR,
+  INFO_ABIERTA,
+  INFO_CERRADA,
+  SET_FILTER,
+} from '../actions/types';
 
 const initialState = {
   listaCocktails: [],
+  filter: '',
   cocktailActivo: null,
   cocktailsError: false,
   infoAbierta: false,
@@ -13,6 +20,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         listaCocktails: action.cocktails,
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: action.filter,
       };
     case COCKTAILS_ERROR:
       return {
