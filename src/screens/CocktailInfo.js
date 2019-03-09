@@ -7,7 +7,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import fonts from '../theme/fonts';
 import { CocktailDetail } from '../components/index';
 import colors from '../theme/Colors';
-import { infoCerrada } from '../actions/cocktails';
+import { infoCerrada } from '../store/actions/cocktails';
 
 const styles = StyleSheet.create({
   container: {

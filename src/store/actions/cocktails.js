@@ -1,22 +1,11 @@
 /* eslint-disable */
-import {
-  BUSCAR_COCKTAILS,
-  COCKTAIL_OBTENIDO,
-  COCKTAILS_ERROR,
-  INFO_ABIERTA,
-  INFO_CERRADA,
-} from './types';
+import { COCKTAIL_OBTENIDO, COCKTAILS_ERROR, INFO_ABIERTA, INFO_CERRADA } from './types';
+import Cocktail from '../../entities/Cocktail';
 
 export const cocktailsObtenidos = cocktails => {
   return {
     type: COCKTAIL_OBTENIDO,
     cocktails,
-  };
-};
-
-const resetState = () => {
-  return {
-    type: BUSCAR_COCKTAILS,
   };
 };
 
@@ -28,7 +17,7 @@ export const cocktailError = () => {
 export const infoAbierta = cocktailActivo => {
   return {
     type: INFO_ABIERTA,
-    cocktailActivo
+    cocktailActivo,
   };
 };
 export const infoCerrada = () => {
@@ -68,22 +57,30 @@ const guardarInformacion = cocktail => {
 
 const buscarMasInformacion = datos => {
   return dispatch => {
-    Promise.all(
-      datos.map(d =>
-        fetch(`http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${d.idDrink}`).then(res =>
-          res.json()
-        )
-      )
-    ).then(drinks => {
-      dispatch(guardarInformacion(drinks));
-    });
+    Promise.all(datos.map(d => fetch(COCKTAIL_DETAIL + d.idDrink).then(res => res.json()))).then(
+      drinks => {
+        dispatch(guardarInformacion(drinks));
+      }
+    );
   };
+};
+
+const fetchaso = () => {
+  fetch(COCKTAIL_LIST, {
+    method: 'POST',
+  })
+    .catch(err => {
+      return err.message;
+    })
+    .then(res => res.json())
+    .then(parsedRes => {
+      return parsedRes;
+    });
 };
 
 export const buscarCocktails = () => {
   return dispatch => {
-    dispatch(resetState());
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass', {
+    fetch(COCKTAIL_LIST, {
       method: 'POST',
     })
       .catch(err => {
@@ -96,3 +93,6 @@ export const buscarCocktails = () => {
       });
   };
 };
+
+const COCKTAIL_LIST = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass';
+const COCKTAIL_DETAIL = 'http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';

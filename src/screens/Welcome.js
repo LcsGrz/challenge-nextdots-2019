@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
-import { compose, bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import colors from '../theme/Colors';
 import { Typography, Button, Spacing, TypographyVariants, SpacingVariants } from '../components';
 import { responsiveSize } from '../utils/dimensions';
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Welcome extends React.Component {
+export default class Welcome extends React.Component {
   static options = () => ({ topBar: { visible: false, height: 0 } });
 
   render() {
@@ -29,7 +27,9 @@ class Welcome extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.textContainer}>
-          <Typography variant={TypographyVariants.bodyTitle}>NextDots challenge 2019</Typography>
+          <Typography variant={TypographyVariants.bodyTitle}>
+            NextDots challenge 2019 _ v2
+          </Typography>
           <Spacing variant={SpacingVariants.smallPlus} />
           <Typography>Lucas Gerez</Typography>
         </View>
@@ -38,22 +38,3 @@ class Welcome extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  isFetching: state.example.isFetching,
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      // actionConnect: action,
-    },
-    dispatch
-  );
-
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Welcome)
-);

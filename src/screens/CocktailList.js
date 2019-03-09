@@ -16,7 +16,7 @@ import { CocktailView, Button } from '../components';
 import fonts from '../theme/fonts';
 import iconLupa from '../assets/images/common/lupa.png';
 import iconError from '../assets/images/common/error.png';
-import { buscarCocktails } from '../actions/cocktails';
+import { buscarCocktails } from '../store/actions/cocktails';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +63,7 @@ class CocktailList extends React.Component {
   componentWillMount() {
     const { cocktails, obtenerCocktails } = this.props;
     //---------------------------------------
-    if (!cocktails.cocktailsObtenidos) obtenerCocktails();
+    if (cocktails.listaCocktails.length === 0) obtenerCocktails();
   }
 
   entradaTextoHandler = texto => {
@@ -104,7 +104,7 @@ class CocktailList extends React.Component {
           <Button text="REINTENTAR" onPress={() => obtenerCocktails()} />
         </View>
       );
-    } else if (cocktails.cocktailsObtenidos) {
+    } else if (cocktails.listaCocktails.length > 0) {
       if (!seteados)
         // Esto levanta el warning en la app
         this.setState({ cocktailsFiltrados: cocktails.listaCocktails, seteados: true });

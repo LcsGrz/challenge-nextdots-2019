@@ -8,7 +8,7 @@ import styles from './styles';
 import fonts from '../../../theme/fonts';
 import Image from '../image-on-loading';
 import { goToPage } from '../../../screens/index';
-import { infoAbierta } from '../../../actions/cocktails';
+import { infoAbierta } from '../../../store/actions/cocktails';
 
 class CocktailView extends React.Component {
   MostrarInfoCompleta = () => {
