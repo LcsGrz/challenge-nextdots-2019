@@ -8,9 +8,9 @@ const Error = retry => (
   <View style={[styles.container, { justifyContent: 'space-around' }]}>
     <Image resizeMode="cover" source={iconError} style={styles.imagen} />
     <Text style={styles.info} textBreakStrategy="balanced">
-      Se a producido un error
+      Oops... An error occurred
     </Text>
-    <Button text="REINTENTAR" onPress={() => retry()} />
+    <Button text="RETRY" onPress={() => retry()} />
   </View>
 );
 

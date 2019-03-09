@@ -8,7 +8,7 @@ const Show = (textHandler, cocktailsFiltereds, componentId) => (
   <View style={styles.container}>
     <View style={styles.containerBuscador}>
       <TextInput
-        placeholder="Buscar Cocktail"
+        placeholder="Find Cocktail"
         style={styles.buscador}
         onChangeText={text => textHandler(text)}
       />

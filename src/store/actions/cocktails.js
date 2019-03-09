@@ -2,7 +2,7 @@
 import { COCKTAILS_OBTAINED, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
-export const cocktailsObtenidos = cocktails => {
+const obtainedCocktails = cocktails => {
   return {
     type: COCKTAILS_OBTAINED,
     cocktails,
@@ -14,13 +14,13 @@ export const cocktailError = () => {
     type: COCKTAILS_ERROR,
   };
 };
-export const infoAbierta = cocktailActivo => {
+export const infoOpened = activeCocktail => {
   return {
     type: INFO_OPEN,
-    cocktailActivo,
+    activeCocktail,
   };
 };
-export const infoCerrada = () => {
+export const infoClosed = () => {
   return {
     type: INFO_CLOSE,
   };
@@ -39,7 +39,7 @@ const guardarInformacion = cocktail => {
         listaCocktails = [...listaCocktails,Cocktail.fromJSON(c.drinks[0])];
       })
     ).then(() => {
-      dispatch(cocktailsObtenidos(listaCocktails));
+      dispatch(obtainedCocktails(listaCocktails));
     });
   };
 };
@@ -67,7 +67,7 @@ const fetchaso = () => {
     });
 };
 
-export const buscarCocktails = () => {
+export const searchCocktails = () => {
   return dispatch => {
     fetch(COCKTAIL_LIST, {
       method: 'POST',

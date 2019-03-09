@@ -9,9 +9,9 @@ import {
 const initialState = {
   cocktailList: [],
   filter: '',
-  cocktailActivo: null,
+  activeCocktail: null,
   cocktailsError: false,
-  infoAbierta: false,
+  infoOpened: false,
 };
 
 export default (state = initialState, action) => {
@@ -34,13 +34,13 @@ export default (state = initialState, action) => {
     case INFO_OPEN:
       return {
         ...state,
-        infoAbierta: true,
-        cocktailActivo: action.cocktailActivo,
+        infoOpened: true,
+        activeCocktail: action.activeCocktail,
       };
     case INFO_CLOSE:
       return {
         ...state,
-        infoAbierta: false,
+        infoOpened: false,
       };
     default:
       return state;

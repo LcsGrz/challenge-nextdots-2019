@@ -6,7 +6,7 @@ const Finding = (
   <View style={styles.container}>
     <ActivityIndicator size="large" color="white" />
     <Text style={styles.info} textBreakStrategy="balanced">
-      Buscando cocktails...
+      Finding cocktails...
     </Text>
   </View>
 );

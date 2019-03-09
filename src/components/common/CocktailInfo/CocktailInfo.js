@@ -7,19 +7,13 @@ import fonts from '../../../theme/fonts';
 class CocktailInfo extends React.Component {
   render() {
     const { cocktail } = this.props;
-    const { Imagen, Ingredientes, Cantidades, Preparacion } = cocktail;
-    //----------------------------------------------------------
-    let ingCant = [];
-    for (let c = 0; c < Ingredientes.length; c++) {
-      ingCant.push(`${Ingredientes[c]}\n`);
-      ingCant.push(`${Cantidades[c]}\n`);
-    }
+    const { photo, ingredients, instructions } = cocktail;
     //----------------------------------------------------------
     return (
       <View style={[styles.sombra, styles.redondeado, styles.componente]}>
         <Image
           resizeMode="cover"
-          source={{ uri: Imagen }}
+          source={{ uri: photo }}
           style={[styles.imagen, styles.redondeado]}
         />
         <View style={styles.contenedor}>
@@ -27,7 +21,7 @@ class CocktailInfo extends React.Component {
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
             textBreakStrategy="balanced"
           >
-            {ingCant}
+            {ingredients}
           </Text>
           <Text
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
@@ -39,7 +33,7 @@ class CocktailInfo extends React.Component {
             style={[styles.ingrediente, { fontFamily: fonts.regular }]}
             textBreakStrategy="balanced"
           >
-            {Preparacion}
+            {instructions}
           </Text>
         </View>
       </View>

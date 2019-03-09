@@ -8,13 +8,13 @@ import styles from './styles';
 import fonts from '../../../theme/fonts';
 import Image from '../image-on-loading';
 import { goToPage } from '../../../screens/index';
-import { infoAbierta } from '../../../store/actions/cocktails';
+import { infoOpened } from '../../../store/actions/cocktails';
 
 class CocktailCard extends React.Component {
   MostrarInfoCompleta = () => {
-    const { CID, infoAbiertaState, abrirInfo, coctail } = this.props;
-    if (!infoAbiertaState) {
-      abrirInfo(coctail);
+    const { CID, isInfoOpened, openInfo, coctail } = this.props;
+    if (!isInfoOpened) {
+      openInfo(coctail);
       goToPage(CID, 'CocktailDetail');
     }
   };
@@ -25,9 +25,9 @@ class CocktailCard extends React.Component {
     const ingredientesRestantes = ingredients.length - 2;
     let cIngredientes = null;
     if (ingredientesRestantes > 1) {
-      cIngredientes = `Y ${ingredientesRestantes} ingredientes mas...`;
+      cIngredientes = `And ${ingredientesRestantes} more ingredients...`;
     } else if (ingredientesRestantes === 1) {
-      cIngredientes = `Y ${ingredientesRestantes} ingrediente mas...`;
+      cIngredientes = `And ${ingredientesRestantes} more ingredient...`;
     }
     //-------------------------------------------------------------------
     return (
@@ -70,14 +70,14 @@ class CocktailCard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    infoAbiertaState: state.cocktails.infoAbierta,
+    isInfoOpened: state.cocktails.infoOpened,
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      abrirInfo: infoAbierta,
+      openInfo: infoOpened,
     },
     dispatch
   );

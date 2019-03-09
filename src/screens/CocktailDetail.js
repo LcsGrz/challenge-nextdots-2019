@@ -7,7 +7,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import fonts from '../theme/fonts';
 import { CocktailInfo } from '../components/index';
 import colors from '../theme/Colors';
-import { infoCerrada } from '../store/actions/cocktails';
+import { infoClosed } from '../store/actions/cocktails';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +48,7 @@ class CocktailDetail extends React.Component {
     Navigation.mergeOptions(this.props.componentId, {
       topBar: {
         title: {
-          text: this.props.cocktailActivo.Titulo,
+          text: this.props.activeCocktail.name,
         },
       },
     });
@@ -60,7 +60,7 @@ class CocktailDetail extends React.Component {
   }
 
   render() {
-    const { cocktailActivo } = this.props;
+    const { activeCocktail } = this.props;
     //--------------------------------------------------
     //--------------------------------------------------
     return (
@@ -69,22 +69,22 @@ class CocktailDetail extends React.Component {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <CocktailInfo cocktail={cocktailActivo} />
+        <CocktailInfo cocktail={activeCocktail} />
       </ScrollView>
     );
   }
 }
-
+//
 const mapStateToProps = state => {
   return {
-    cocktailActivo: state.cocktails.cocktailActivo,
+    activeCocktail: state.cocktails.activeCocktail,
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      cerrarInfo: infoCerrada,
+      cerrarInfo: infoClosed,
     },
     dispatch
   );
