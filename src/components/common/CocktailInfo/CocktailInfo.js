@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 import styles from './styles';
 
-const CocktailInfo = cocktail => (
+const CocktailInfo = ({ cocktail }) => (
   <View style={[styles.shadow, styles.rounded, styles.component]}>
     <Image
       resizeMode="cover"
-      source={{ uri: cocktail.image }}
-      style={[styles.imagen, styles.redondeado]}
+      source={{ uri: cocktail.photo }}
+      style={[styles.image, styles.rounded]}
     />
     <View style={styles.container}>
       <Text style={styles.ingredient} textBreakStrategy="balanced">

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { COCKTAILS_OBTAINED, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
+import { COCKTAILS_OBTAINED,FETCHING, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
 const obtainedCocktails = cocktails => {
@@ -12,6 +12,11 @@ const obtainedCocktails = cocktails => {
 export const cocktailError = () => {
   return {
     type: COCKTAILS_ERROR,
+  };
+};
+const fetching = () => {
+  return {
+    type: FETCHING,
   };
 };
 export const infoOpened = activeCocktail => {
@@ -69,6 +74,7 @@ const fetchaso = () => {
 
 export const searchCocktails = () => {
   return dispatch => {
+    dispatch(fetching());
     fetch(COCKTAIL_LIST, {
       method: 'POST',
     })

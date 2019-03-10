@@ -62,7 +62,6 @@ class CocktailDetail extends React.Component {
   render() {
     const { activeCocktail } = this.props;
     //--------------------------------------------------
-    //--------------------------------------------------
     return (
       <ScrollView
         style={styles.scroll}
