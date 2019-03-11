@@ -3,6 +3,7 @@ import CocktailService from '../../provider/services/CocktailService';
 import { COCKTAILS_OBTAINED,RETRY, COCKTAILS_ERROR, SET_ACTIVE_COCKTAIL,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
+
 const obtainedCocktails = cocktails => {
   return {
     type: COCKTAILS_OBTAINED,
@@ -41,26 +42,15 @@ export const setFilter = (text) => {
   };
 };
 
-const saveCocktails = cocktail => {
-  return dispatch => {
-    let cocktailsList = [];
-    Promise.all(
-      cocktail.map(c => {
-        cocktailsList = [...cocktailsList,Cocktail.fromJSON(c.drinks[0])];
-      })
-    ).then(() => {
-      dispatch(obtainedCocktails(cocktailsList));
-    });
-  };
-};
-
 export const searchCocktails = () => {
   return async dispatch => {
     try
     {
     let cocktails = await CocktailService.getCocktails();
     let cocktailWithInfo = await CocktailService.getAllCocktailWithInfo(cocktails.drinks);
-    dispatch(saveCocktails(cocktailWithInfo));
+    let cocktailsOK = await Cocktail.prepareToSave(cocktailWithInfo);
+
+    dispatch(obtainedCocktails(cocktailsOK));
     }
     catch(e)
     {

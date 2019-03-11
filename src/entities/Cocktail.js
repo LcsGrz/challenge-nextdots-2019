@@ -1,3 +1,4 @@
+/* eslint-disable */
 class Cocktail {
   constructor(strDrink, strDrinkThumb, idDrink, instructions, ingredients) {
     this.name = strDrink;
@@ -40,6 +41,16 @@ class Cocktail {
       drink.strInstructions,
       ingredients
     );
+  }
+
+  static async prepareToSave(cocktails) {
+    let cocktailsList = [];
+    await Promise.all(
+      cocktails.map(c => {
+        cocktailsList = [...cocktailsList, Cocktail.fromJSON(c.drinks[0])];
+      })
+    );
+    return cocktailsList;
   }
 }
 
