@@ -59,14 +59,16 @@ const saveCocktails = cocktail => {
   };
 };
 
-export const searchCocktails2 = () => {
+export const searchCocktails = () => {
   return async dispatch => {
-    try{
+    try
+    {
     let cocktails = await CocktailService.getCocktails();
     let cocktailWithDetail = await CocktailService.getAllCocktailWithInfo(cocktails.drinks);
     dispatch(saveCocktails(cocktailWithDetail));
     }
-    catch(e){
+    catch(e)
+    {
       dispatch(cocktailError(e.message));
     }
   }; 

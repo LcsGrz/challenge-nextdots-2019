@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
-import { searchCocktails2, setFilter, infoOpened, retryFind } from '../store/actions/cocktails';
+import { searchCocktails, setFilter, infoOpened, retryFind } from '../store/actions/cocktails';
 import { Error, Finding, CocktailList } from '../fragments';
 import getMatchedCocktails from '../store/selectors/cocktails';
 import { goToPage } from './index';
@@ -67,7 +67,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      findCocktails: searchCocktails2,
+      findCocktails: searchCocktails,
       retrySearch: retryFind,
       filterCocktails: setFilter,
       openInfo: infoOpened,
