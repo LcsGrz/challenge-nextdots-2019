@@ -10,7 +10,7 @@ class Cocktail {
   nameMatch = text => this.name.toUpperCase().indexOf(text.toUpperCase()) > -1;
 
   ingredientsToText = () =>
-    this.ingredients.map(item => `${item.ingredient}\n${item.measure}\n`).join();
+    this.ingredients.map(item => `${item.ingredient}\n${item.measure}`).join('\n');
 
   remainingIngredients() {
     const remaining = this.ingredients.length - 2;

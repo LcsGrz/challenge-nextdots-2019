@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navigation } from 'react-native-navigation';
 import { compose, bindActionCreators } from 'redux';
 import { ScrollView, StyleSheet } from 'react-native';
 import fonts from '../theme/fonts';
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
 });
 
 class CocktailDetail extends React.Component {
-  static options = () => ({
+  static options = passProps => ({
     topBar: {
       elevation: 0,
       shadowOpacity: 0,
@@ -34,7 +33,7 @@ class CocktailDetail extends React.Component {
         translucent: false,
       },
       title: {
-        text: 'COCKTAIL',
+        text: passProps.cocktail.name,
         alignment: 'center',
         color: 'white',
         fontFamily: fonts.regular,
@@ -43,16 +42,6 @@ class CocktailDetail extends React.Component {
       },
     },
   });
-
-  componentWillMount() {
-    Navigation.mergeOptions(this.props.componentId, {
-      topBar: {
-        title: {
-          text: this.props.activeCocktail.name,
-        },
-      },
-    });
-  }
 
   componentWillUnmount() {
     const { cerrarInfo } = this.props;
