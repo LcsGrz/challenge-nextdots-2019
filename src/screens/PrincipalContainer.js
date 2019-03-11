@@ -34,7 +34,7 @@ class PrincipalContainer extends React.Component {
 
   whatToShow() {
     const { cocktails, cocktailsFiltereds, retrySearch } = this.props;
-    //  console.log('eeeee');
+
     if (cocktails.cocktailsError)
       return <Error retry={retrySearch} errorMSG={cocktails.cocktailsError} />;
     //-
