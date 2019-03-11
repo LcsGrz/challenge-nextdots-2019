@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, FlatList, TextInput, Image } from 'react-native';
-import { CocktailCard } from '../../components';
+import { PropTypes } from 'prop-types';
+import { CocktailCard } from '../../index';
 import styles from './styles';
-import iconLupa from '../../assets/images/common/lupa.png';
+import iconLupa from '../../../assets/images/common/lupa.png';
+import Cocktail from '../../../entities/Cocktail';
 
 const CocktailList = ({ cocktailsFiltereds, textHandler, onPress }) => (
   <View style={styles.container}>
@@ -24,5 +25,16 @@ const CocktailList = ({ cocktailsFiltereds, textHandler, onPress }) => (
     />
   </View>
 );
+
+CocktailList.propTypes = {
+  cocktailsFiltereds: PropTypes.arrayOf(PropTypes.instanceOf(Cocktail)).isRequired,
+  textHandler: PropTypes.func,
+  onPress: PropTypes.func,
+};
+
+CocktailList.defaultProps = {
+  textHandler: () => {},
+  onPress: () => {},
+};
 
 export default CocktailList;

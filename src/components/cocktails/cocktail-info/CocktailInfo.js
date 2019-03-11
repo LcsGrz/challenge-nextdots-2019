@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, View, Image } from 'react-native';
+import { PropTypes } from 'prop-types';
 import styles from './styles';
+import Cocktail from '../../../entities/Cocktail';
 
 const CocktailInfo = ({ cocktail }) => (
   <View style={[styles.shadow, styles.rounded, styles.component]}>
@@ -23,5 +24,9 @@ const CocktailInfo = ({ cocktail }) => (
     </View>
   </View>
 );
+
+CocktailInfo.propTypes = {
+  cocktail: PropTypes.instanceOf(Cocktail).isRequired,
+};
 
 export default CocktailInfo;

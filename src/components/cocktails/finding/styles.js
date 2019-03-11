@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import colors from '../../theme/Colors';
-import fonts from '../../theme/fonts';
+import colors from '../../../theme/Colors';
+import fonts from '../../../theme/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,5 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   info: { fontFamily: fonts.regular, fontSize: 25, fontWeight: '500', color: 'white' },
-  image: { width: 300, height: 300 },
 });
 export default styles;

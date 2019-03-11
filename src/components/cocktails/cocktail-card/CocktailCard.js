@@ -1,8 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
+import { PropTypes } from 'prop-types';
 import styles from './styles';
-import Image from '../image-on-loading';
+import Image from '../../index';
+import Cocktail from '../../../entities/Cocktail';
 
 const CocktailCard = ({ cocktail, onPress }) => (
   <TouchableOpacity
@@ -30,5 +31,14 @@ const CocktailCard = ({ cocktail, onPress }) => (
     />
   </TouchableOpacity>
 );
+
+CocktailCard.propTypes = {
+  cocktail: PropTypes.instanceOf(Cocktail).isRequired,
+  onPress: PropTypes.func,
+};
+
+CocktailCard.defaultProps = {
+  onPress: () => {},
+};
 
 export default CocktailCard;

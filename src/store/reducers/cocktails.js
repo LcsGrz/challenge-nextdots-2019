@@ -11,7 +11,6 @@ const initialState = {
   filter: '',
   activeCocktail: null,
   cocktailsError: null,
-  infoOpened: false,
 };
 
 export default (state = initialState, action) => {

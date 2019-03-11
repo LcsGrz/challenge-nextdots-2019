@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import { Button } from '../../components';
+import { PropTypes } from 'prop-types';
+import { Button } from '../../index';
 import styles from './styles';
-import iconError from '../../assets/images/common/error.png';
+import iconError from '../../../assets/images/common/error.png';
 
 const Error = ({ retry, errorMSG }) => (
   <View style={[styles.container, { justifyContent: 'space-around' }]}>
@@ -17,5 +17,14 @@ const Error = ({ retry, errorMSG }) => (
     <Button text="RETRY" onPress={() => retry()} />
   </View>
 );
+
+Error.propTypes = {
+  errorMSG: PropTypes.string.isRequired,
+  retry: PropTypes.func,
+};
+
+Error.defaultProps = {
+  retry: () => {},
+};
 
 export default Error;

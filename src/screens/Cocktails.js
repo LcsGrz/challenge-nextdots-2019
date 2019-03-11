@@ -1,64 +1,72 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
 import {
   searchCocktails,
   setFilter,
   setActiveCocktail,
   retryFind,
 } from '../store/actions/cocktails';
-import { Error, Finding, CocktailList } from '../fragments';
+import { Error, Finding, CocktailList } from '../components/index';
 import getMatchedCocktails from '../store/selectors/cocktails';
 import { goToPage } from './index';
+import * as CocktailClass from '../entities/Cocktail';
 
-class PrincipalContainer extends React.Component {
+class Cocktail extends React.Component {
   static options = () => ({ topBar: { visible: false, height: 0 } });
 
-  componentWillMount() {
+  componentDidMount() {
     const { cocktails, findCocktails } = this.props;
-    //---------------------------------------
     if (cocktails.cocktailList.length === 0) findCocktails();
   }
 
-  //---------------------------------------------------------------------------------------
-  textHandler(text) {
+  _textHandler(text) {
     const { filterCocktails } = this.props;
-    //---------------------------------------
     filterCocktails(text);
   }
 
-  showDetail(cocktail) {
+  _showDetail(cocktail) {
     const { componentId, openCocktailInfo } = this.props;
-    //---------------------------------------
     openCocktailInfo(cocktail);
     goToPage(componentId, 'CocktailDetail', { title: cocktail.name });
   }
 
-  whatToShow() {
+  renderCocktails() {
     const { cocktails, cocktailsFiltereds, retrySearch } = this.props;
-    //---------------------------------------
+
     if (cocktails.cocktailsError)
+      // Si tengo un error, es por que intente el fetch y algo salio mal, muestro el error
       return <Error retry={retrySearch} errorMSG={cocktails.cocktailsError} />;
-    //-
+
     if (cocktails.cocktailList.length > 0)
+      // Si tengo elementos es por que termine el fetch, devuelvo la flatlist
       return (
         <CocktailList
           cocktailsFiltereds={cocktailsFiltereds}
-          textHandler={text => this.textHandler(text)}
-          onPress={cocktail => this.showDetail(cocktail)}
+          textHandler={text => this._textHandler(text)}
+          onPress={cocktail => this._showDetail(cocktail)}
         />
       );
-    //-
-    return Finding;
+
+    return Finding; // si ninguna de las anteriores,devuelve pantalla de FINDING
   }
 
-  //---------------------------------------------------------------------------------------
   render() {
-    return <View style={{ flex: 1 }}>{this.whatToShow()}</View>;
+    return <View style={{ flex: 1 }}>{this.renderCocktails()}</View>;
   }
 }
+
+Cocktail.propTypes = {
+  componentId: PropTypes.string.isRequired,
+  cocktails: PropTypes.any.isRequired,
+  cocktailsFiltereds: PropTypes.arrayOf(PropTypes.instanceOf(CocktailClass)).isRequired,
+  retrySearch: PropTypes.func.isRequired,
+  findCocktails: PropTypes.func.isRequired,
+  openCocktailInfo: PropTypes.func.isRequired,
+  filterCocktails: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => {
   return {
@@ -82,5 +90,5 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(PrincipalContainer)
+  )(Cocktail)
 );

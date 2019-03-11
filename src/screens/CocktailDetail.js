@@ -1,11 +1,12 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { ScrollView, StyleSheet } from 'react-native';
+import { PropTypes } from 'prop-types';
 import fonts from '../theme/fonts';
 import { CocktailInfo } from '../components/index';
 import colors from '../theme/Colors';
+import Cocktail from '../entities/Cocktail';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +45,7 @@ class CocktailDetail extends React.Component {
 
   render() {
     const { activeCocktail } = this.props;
-    //--------------------------------------------------
+
     return (
       <ScrollView
         style={styles.scroll}
@@ -56,6 +57,10 @@ class CocktailDetail extends React.Component {
     );
   }
 }
+
+CocktailDetail.propTypes = {
+  activeCocktail: PropTypes.instanceOf(Cocktail).isRequired,
+};
 
 const mapStateToProps = state => {
   return {
