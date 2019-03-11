@@ -2,8 +2,7 @@ import {
   COCKTAILS_OBTAINED,
   COCKTAILS_ERROR,
   RETRY,
-  INFO_OPEN,
-  INFO_CLOSE,
+  SET_ACTIVE_COCKTAIL,
   SET_FILTER,
 } from '../actions/types';
 
@@ -38,16 +37,10 @@ export default (state = initialState, action) => {
         ...state,
         cocktailsError: action.msg,
       };
-    case INFO_OPEN:
+    case SET_ACTIVE_COCKTAIL:
       return {
         ...state,
-        infoOpened: true,
         activeCocktail: action.activeCocktail,
-      };
-    case INFO_CLOSE:
-      return {
-        ...state,
-        infoOpened: false,
       };
     default:
       return state;

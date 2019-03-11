@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 import { ScrollView, StyleSheet } from 'react-native';
 import fonts from '../theme/fonts';
 import { CocktailInfo } from '../components/index';
 import colors from '../theme/Colors';
-import { infoClosed } from '../store/actions/cocktails';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,11 +42,6 @@ class CocktailDetail extends React.Component {
     },
   });
 
-  componentWillUnmount() {
-    const { cerrarInfo } = this.props;
-    cerrarInfo();
-  }
-
   render() {
     const { activeCocktail } = this.props;
     //--------------------------------------------------
@@ -69,17 +63,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      cerrarInfo: infoClosed,
-    },
-    dispatch
-  );
-
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
   )(CocktailDetail)
 );

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import CocktailService from '../../provider/services/CocktailService';
-import { COCKTAILS_OBTAINED,RETRY, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
+import { COCKTAILS_OBTAINED,RETRY, COCKTAILS_ERROR, SET_ACTIVE_COCKTAIL,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
 const obtainedCocktails = cocktails => {
@@ -26,18 +26,13 @@ export const retryFind = () => {
 }
 };
 
-export const infoOpened = activeCocktail => {
+export const setActiveCocktail = activeCocktail => {
   return {
-    type: INFO_OPEN,
+    type: SET_ACTIVE_COCKTAIL,
     activeCocktail,
   };
 };
 
-export const infoClosed = () => {
-  return {
-    type: INFO_CLOSE,
-  };
-};
 
 export const setFilter = (text) => {
   return{
@@ -64,8 +59,8 @@ export const searchCocktails = () => {
     try
     {
     let cocktails = await CocktailService.getCocktails();
-    let cocktailWithDetail = await CocktailService.getAllCocktailWithInfo(cocktails.drinks);
-    dispatch(saveCocktails(cocktailWithDetail));
+    let cocktailWithInfo = await CocktailService.getAllCocktailWithInfo(cocktails.drinks);
+    dispatch(saveCocktails(cocktailWithInfo));
     }
     catch(e)
     {

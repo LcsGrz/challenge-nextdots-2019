@@ -3,7 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
-import { searchCocktails, setFilter, infoOpened, retryFind } from '../store/actions/cocktails';
+import {
+  searchCocktails,
+  setFilter,
+  setActiveCocktail,
+  retryFind,
+} from '../store/actions/cocktails';
 import { Error, Finding, CocktailList } from '../fragments';
 import getMatchedCocktails from '../store/selectors/cocktails';
 import { goToPage } from './index';
@@ -25,11 +30,10 @@ class PrincipalContainer extends React.Component {
   }
 
   showDetail(cocktail) {
-    const { componentId, isInfoOpened, openInfo } = this.props;
-    if (!isInfoOpened) {
-      openInfo(cocktail);
-      goToPage(componentId, 'CocktailDetail', { title: cocktail.name });
-    }
+    const { componentId, openCocktailInfo } = this.props;
+    //---------------------------------------
+    openCocktailInfo(cocktail);
+    goToPage(componentId, 'CocktailDetail', { title: cocktail.name });
   }
 
   whatToShow() {
@@ -60,7 +64,6 @@ const mapStateToProps = state => {
   return {
     cocktails: state.cocktails,
     cocktailsFiltereds: getMatchedCocktails(state),
-    isInfoOpened: state.infoOpened,
   };
 };
 
@@ -70,7 +73,7 @@ const mapDispatchToProps = dispatch =>
       findCocktails: searchCocktails,
       retrySearch: retryFind,
       filterCocktails: setFilter,
-      openInfo: infoOpened,
+      openCocktailInfo: setActiveCocktail,
     },
     dispatch
   );
