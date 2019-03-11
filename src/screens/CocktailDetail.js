@@ -33,7 +33,7 @@ class CocktailDetail extends React.Component {
         translucent: false,
       },
       title: {
-        text: passProps.cocktail.name,
+        text: passProps.title,
         alignment: 'center',
         color: 'white',
         fontFamily: fonts.regular,
@@ -62,7 +62,7 @@ class CocktailDetail extends React.Component {
     );
   }
 }
-//
+
 const mapStateToProps = state => {
   return {
     activeCocktail: state.cocktails.activeCocktail,
