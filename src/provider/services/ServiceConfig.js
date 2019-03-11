@@ -7,8 +7,12 @@ export default class ServiceConfig {
     return `${Settings.apiRestEndpoint}`;
   }
 
-  static get getExample() {
-    return `${ServiceConfig.endpoint}/endpointExample`;
+  static get cocktails() {
+    return `${ServiceConfig.endpoint}/filter.php?g=Cocktail_glass`;
+  }
+
+  static get cocktailsById() {
+    return `${ServiceConfig.endpoint}/lookup.php`;
   }
 
   static get APIConnector() {

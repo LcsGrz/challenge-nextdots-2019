@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { COCKTAILS_OBTAINED,FETCHING, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
+import CocktailService from '../../provider/services/CocktailService';
+import { COCKTAILS_OBTAINED,RETRY, COCKTAILS_ERROR, INFO_OPEN, INFO_CLOSE,SET_FILTER } from './types';
 import Cocktail from '../../entities/Cocktail';
 
 const obtainedCocktails = cocktails => {
@@ -9,85 +10,64 @@ const obtainedCocktails = cocktails => {
   };
 };
 
-export const cocktailError = () => {
+export const cocktailError = (msg) => {
   return {
     type: COCKTAILS_ERROR,
+    msg
   };
 };
-const fetching = () => {
-  return {
-    type: FETCHING,
-  };
+
+export const retryFind = () => {
+  return dispatch => {
+    dispatch(searchCocktails());
+    dispatch( {
+    type: RETRY,
+  });
+}
 };
+
 export const infoOpened = activeCocktail => {
   return {
     type: INFO_OPEN,
     activeCocktail,
   };
 };
+
 export const infoClosed = () => {
   return {
     type: INFO_CLOSE,
   };
 };
+
 export const setFilter = (text) => {
   return{
     type: SET_FILTER,
     filter: text
   };
 };
-const guardarInformacion = cocktail => {
+
+const saveCocktails = cocktail => {
   return dispatch => {
-    let listaCocktails = [];
+    let cocktailsList = [];
     Promise.all(
       cocktail.map(c => {
-        listaCocktails = [...listaCocktails,Cocktail.fromJSON(c.drinks[0])];
+        cocktailsList = [...cocktailsList,Cocktail.fromJSON(c.drinks[0])];
       })
     ).then(() => {
-      dispatch(obtainedCocktails(listaCocktails));
+      dispatch(obtainedCocktails(cocktailsList));
     });
   };
 };
 
-const buscarMasInformacion = datos => {
-  return dispatch => {
-    Promise.all(datos.map(d => fetch(COCKTAIL_DETAIL + d.idDrink).then(res => res.json()))).then(
-      drinks => {
-        dispatch(guardarInformacion(drinks));
-      }
-    );
-  };
+export const searchCocktails2 = () => {
+  return async dispatch => {
+    try{
+    let cocktails = await CocktailService.getCocktails();
+    let cocktailWithDetail = await CocktailService.getAllCocktailWithInfo(cocktails.drinks);
+    dispatch(saveCocktails(cocktailWithDetail));
+    }
+    catch(e){
+      dispatch(cocktailError(e.message));
+    }
+  }; 
 };
-
-const fetchaso = () => {
-  fetch(COCKTAIL_LIST, {
-    method: 'POST',
-  })
-    .catch(err => {
-      return err.message;
-    })
-    .then(res => res.json())
-    .then(parsedRes => {
-      return parsedRes;
-    });
-};
-
-export const searchCocktails = () => {
-  return dispatch => {
-    dispatch(fetching());
-    fetch(COCKTAIL_LIST, {
-      method: 'POST',
-    })
-      .catch(err => {
-        console.log(err);
-        dispatch(cocktailError());
-      })
-      .then(res => res.json())
-      .then(parsedRes => {
-        dispatch(buscarMasInformacion(parsedRes.drinks));
-      });
-  };
-};
-
-const COCKTAIL_LIST = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass';
-const COCKTAIL_DETAIL = 'http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';

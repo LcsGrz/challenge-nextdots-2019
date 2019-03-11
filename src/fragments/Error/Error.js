@@ -5,11 +5,14 @@ import { Button } from '../../components';
 import styles from './styles';
 import iconError from '../../assets/images/common/error.png';
 
-const Error = ({ retry }) => (
+const Error = ({ retry, errorMSG }) => (
   <View style={[styles.container, { justifyContent: 'space-around' }]}>
     <Image resizeMode="cover" source={iconError} style={styles.image} />
     <Text style={styles.info} textBreakStrategy="balanced">
       Oops... An error occurred
+    </Text>
+    <Text style={styles.info} textBreakStrategy="balanced">
+      {errorMSG}
     </Text>
     <Button text="RETRY" onPress={() => retry()} />
   </View>

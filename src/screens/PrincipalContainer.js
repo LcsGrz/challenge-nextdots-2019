@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
-import { searchCocktails, setFilter, infoOpened } from '../store/actions/cocktails';
+import { searchCocktails2, setFilter, infoOpened, retryFind } from '../store/actions/cocktails';
 import { Error, Finding, CocktailList } from '../fragments';
 import getMatchedCocktails from '../store/selectors/cocktails';
 import { goToPage } from './index';
@@ -12,9 +12,9 @@ class PrincipalContainer extends React.Component {
   static options = () => ({ topBar: { visible: false, height: 0 } });
 
   componentWillMount() {
-    const { findCocktails } = this.props;
+    const { cocktails, findCocktails } = this.props;
     //---------------------------------------
-    findCocktails();
+    if (cocktails.cocktailList.length === 0) findCocktails();
   }
 
   //---------------------------------------------------------------------------------------
@@ -33,20 +33,21 @@ class PrincipalContainer extends React.Component {
   }
 
   whatToShow() {
-    const { cocktails, findCocktails, cocktailsFiltereds } = this.props;
+    const { cocktails, cocktailsFiltereds, retrySearch } = this.props;
     //  console.log('eeeee');
+    if (cocktails.cocktailsError)
+      return <Error retry={retrySearch} errorMSG={cocktails.cocktailsError} />;
     //-
-    if (cocktails.isFetching) return Finding;
+    if (cocktails.cocktailList.length > 0)
+      return (
+        <CocktailList
+          cocktailsFiltereds={cocktailsFiltereds}
+          textHandler={text => this.textHandler(text)}
+          onPress={cocktail => this.showDetail(cocktail)}
+        />
+      );
     //-
-    if (cocktails.cocktailsError) return <Error retry={findCocktails} />;
-    //-
-    return (
-      <CocktailList
-        cocktailsFiltereds={cocktailsFiltereds}
-        textHandler={text => this.textHandler(text)}
-        onPress={cocktail => this.showDetail(cocktail)}
-      />
-    );
+    return Finding;
   }
 
   //---------------------------------------------------------------------------------------
@@ -66,7 +67,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      findCocktails: searchCocktails,
+      findCocktails: searchCocktails2,
+      retrySearch: retryFind,
       filterCocktails: setFilter,
       openInfo: infoOpened,
     },

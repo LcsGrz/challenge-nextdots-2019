@@ -1,7 +1,7 @@
 import {
   COCKTAILS_OBTAINED,
   COCKTAILS_ERROR,
-  FETCHING,
+  RETRY,
   INFO_OPEN,
   INFO_CLOSE,
   SET_FILTER,
@@ -11,8 +11,7 @@ const initialState = {
   cocktailList: [],
   filter: '',
   activeCocktail: null,
-  isFetching: false,
-  cocktailsError: false,
+  cocktailsError: null,
   infoOpened: false,
 };
 
@@ -22,14 +21,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         cocktailList: action.cocktails,
-        isFetching: false,
-        cocktailsError: false,
+        cocktailsError: null,
       };
-    case FETCHING:
+    case RETRY:
       return {
         ...state,
-        isFetching: true,
-        cocktailsError: false,
+        cocktailsError: null,
       };
     case SET_FILTER:
       return {
@@ -39,8 +36,7 @@ export default (state = initialState, action) => {
     case COCKTAILS_ERROR:
       return {
         ...state,
-        isFetching: false,
-        cocktailsError: true,
+        cocktailsError: action.msg,
       };
     case INFO_OPEN:
       return {
