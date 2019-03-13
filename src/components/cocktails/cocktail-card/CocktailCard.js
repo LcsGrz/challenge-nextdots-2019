@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
-import Image from '../../index';
+import { Image } from '../../index';
 import Cocktail from '../../../entities/Cocktail';
 
 const CocktailCard = ({ cocktail, onPress }) => (

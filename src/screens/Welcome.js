@@ -33,7 +33,7 @@ export default class Welcome extends React.Component {
           <Spacing variant={SpacingVariants.smallPlus} />
           <Typography>Lucas Gerez</Typography>
         </View>
-        <Button text="Enter" onPress={() => goToPage(componentId, 'PrincipalContainer')} />
+        <Button text="Enter" onPress={() => goToPage(componentId, 'Cocktail')} />
       </SafeAreaView>
     );
   }

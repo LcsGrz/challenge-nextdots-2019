@@ -4,6 +4,7 @@ import { COCKTAILS_OBTAINED,RETRY, COCKTAILS_ERROR, SET_ACTIVE_COCKTAIL,SET_FILT
 import Cocktail from '../../entities/Cocktail';
 
 
+
 const obtainedCocktails = cocktails => {
   return {
     type: COCKTAILS_OBTAINED,
@@ -49,7 +50,7 @@ export const searchCocktails = () => {
     let cocktails = await CocktailService.getCocktails();
     let cocktailWithInfo = await CocktailService.getAllCocktailWithInfo(cocktails.drinks);
     let cocktailsOK = await Cocktail.prepareToSave(cocktailWithInfo);
-
+      console.log(cocktailsOK)
     dispatch(obtainedCocktails(cocktailsOK));
     }
     catch(e)

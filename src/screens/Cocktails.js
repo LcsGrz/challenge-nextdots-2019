@@ -40,7 +40,7 @@ class Cocktail extends React.Component {
       // Si tengo un error, es por que intente el fetch y algo salio mal, muestro el error
       return <Error retry={retrySearch} errorMSG={cocktails.cocktailsError} />;
 
-    if (cocktails.cocktailList.length > 0)
+    if (cocktails.cocktailList.length)
       // Si tengo elementos es por que termine el fetch, devuelvo la flatlist
       return (
         <CocktailList
@@ -61,7 +61,7 @@ class Cocktail extends React.Component {
 Cocktail.propTypes = {
   componentId: PropTypes.string.isRequired,
   cocktails: PropTypes.any.isRequired,
-  cocktailsFiltereds: PropTypes.arrayOf(PropTypes.instanceOf(CocktailClass)).isRequired,
+  cocktailsFiltereds: PropTypes.arrayOf(PropTypes.instanceOf(CocktailClass)).isRequired, // Esta linea devuelve un warning
   retrySearch: PropTypes.func.isRequired,
   findCocktails: PropTypes.func.isRequired,
   openCocktailInfo: PropTypes.func.isRequired,
@@ -92,3 +92,10 @@ export default compose(
     mapDispatchToProps
   )(Cocktail)
 );
+
+/*
+no agrege isFetching por que me parece mejor como esta, son menos datos en el estado, y no parece ser necesario salvo para que 
+se pueda leer mejor
+
+no entendi lo de async en el fetch de este componente
+*/
